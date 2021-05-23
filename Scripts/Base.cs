@@ -7,28 +7,59 @@ namespace Base
 {
     class DataBase
     {
-        public void SignIn()
+        private SQLiteConnection OpenBD()
         {
-            Console.WriteLine("SignIn");
-            
             if (!File.Exists("Passwords.sqlite"))
                 SQLiteConnection.CreateFile("Passwords.sqlite");
 
             try
             {
-                SQLiteConnection MYCONN = new SQLiteConnection(@"Data Source=.\Passwords.sqlite;Version=3;");
+                SQLiteConnection MYCONN;
+                MYCONN = new SQLiteConnection(@"Data Source=.\Passwords.sqlite;Version=3;");
                 MYCONN.Open();
 
+                /*
                 SQLiteCommand MYCMD = new SQLiteCommand();
                 MYCMD.Connection = MYCONN;
-                MYCMD.CommandText = "CREATE TABLE IF NOT EXISTS Catalog (id INTEGER PRIMARY KEY AUTOINCREMENT, author TEXT, book TEXT)";                
-                MYCMD.ExecuteNonQuery();
+                */
 
+                return MYCONN;
             }
             catch (SQLiteException ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
-            }          
+            }
+
+            return null;
+        }
+
+        public void SignIn() // тестовая функция
+        {
+            
+        }
+
+        
+        
+        public void SingUp(string LOGIN, string PASSWORD) // добавление нового пользователя
+        {
+            Console.WriteLine("SignUp");
+            SQLiteCommand MYCMD = new SQLiteCommand();
+            MYCMD.Connection = OpenBD();
+
+            MYCMD.CommandText = $"CREATE TABLE {LOGIN}{PASSWORD} (number, url, login, password, description)";
+            MYCMD.CommandType = CommandType.Text;
+            MYCMD.ExecuteNonQuery();
+        }
+
+        public void AddPassword(string URL, string LOGIN, string PASSWORD, string DESCRIPTION = null) // добавление пароля для пользователя
+        {
+            Console.WriteLine("SignIn");
+            
+            SQLiteCommand MYCMD = new SQLiteCommand();
+            MYCMD.Connection = OpenBD();
+            MYCMD.CommandText = $"INSERT INTO {LOGIN}{PASSWORD} (url, login, password, description) VALUES ('{URL}', '{LOGIN}', '{PASSWORD}', '{DESCRIPTION}')";
+            MYCMD.CommandType = CommandType.Text;
+            MYCMD.ExecuteNonQuery();
         }
     }
 }
