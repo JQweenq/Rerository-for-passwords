@@ -7,11 +7,10 @@ namespace Base
 {
     class DataBase
     {
-        // private string TABLE = ;
         private SQLiteCommand MYCMD = new SQLiteCommand();
         private SQLiteConnection MYCONN;
         private string TABLE;
-        private void OpenBD()
+        private void OpenBD() // функция открытия бд
         {
             if (!File.Exists("Passwords.sqlite"))
                 SQLiteConnection.CreateFile("Passwords.sqlite");
@@ -21,11 +20,6 @@ namespace Base
                 MYCONN = new SQLiteConnection(@"Data Source=.\Passwords.sqlite;Version=3;");
                 MYCONN.Open();
 
-                /*
-                SQLiteCommand MYCMD = new SQLiteCommand();
-                MYCMD.Connection = MYCONN;
-                */
-                
                 MYCMD.Connection = MYCONN;
             }
             catch (SQLiteException ex)
@@ -35,7 +29,7 @@ namespace Base
 
         }
 
-        public void SignIn(string LOGIN, string PASSWORD) // тестовая функция
+        public void SignIn(string LOGIN, string PASSWORD) // функция входа
         {
             OpenBD();
             TABLE = $"{LOGIN}{PASSWORD}".ToLower();
@@ -46,6 +40,7 @@ namespace Base
             MYCMD.CommandText = $"CREATE TABLE {LOGIN}{PASSWORD} (url, login, password, description)";
             MYCMD.CommandType = CommandType.Text;
             MYCMD.ExecuteNonQuery();
+            SignIn(LOGIN, PASSWORD);
         }
 
         public void AddPassword(string URL, string LOGIN, string PASSWORD, string DESCRIPTION = null) // добавление пароля для пользователя
@@ -55,7 +50,7 @@ namespace Base
             MYCMD.ExecuteNonQuery();
         }
 
-        public void RemoveAccount()
+        public void RemoveAccount() // удаление пользователя
         {
             try
             {
@@ -78,6 +73,13 @@ namespace Base
         public void RemoveAllRow()  // удаление всех строк
         {
             MYCMD.CommandText = $"DELETE FROM {TABLE}";
+            MYCMD.CommandType = CommandType.Text;
+            MYCMD.ExecuteNonQuery();
+        }
+
+        public void EditData(string VALUE, int  ROWID) // редактирование значения
+        {
+            MYCMD.CommandText = $"UPDATE {TABLE} SET {VALUE} WHERE ROWID = {ROWID}";
             MYCMD.CommandType = CommandType.Text;
             MYCMD.ExecuteNonQuery();
         }
