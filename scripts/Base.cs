@@ -35,8 +35,9 @@ namespace Base
             TABLE = $"{LOGIN}{PASSWORD}".ToLower();
         }
         
-        public void SingUp(string LOGIN, string PASSWORD) // добавление нового пользователя
+        public void SignUp(string LOGIN, string PASSWORD) // добавление нового пользователя
         {
+            OpenBD();
             MYCMD.CommandText = $"CREATE TABLE {LOGIN}{PASSWORD} (url, login, password, description)";
             MYCMD.CommandType = CommandType.Text;
             MYCMD.ExecuteNonQuery();
