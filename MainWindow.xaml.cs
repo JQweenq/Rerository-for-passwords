@@ -23,6 +23,7 @@ namespace PG
         public MainWindow()
         {
             InitializeComponent();
+
         }
         private void Exit(object sender, RoutedEventArgs e)
         {
@@ -31,6 +32,23 @@ namespace PG
         private void WindowMove(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void OpenWindowSignIn(object sender, RoutedEventArgs e)
+        {
+
+            Window WindowSignIn = new SignIn();
+            WindowSignIn.Top = this.Top + (this.Height / 2) - (WindowSignIn.Height / 2);
+            WindowSignIn.Left = this.Left + (this.Width / 2) - (WindowSignIn.Width / 2);
+            WindowSignIn.ShowDialog();
+        }
+        private void OpenWindowSignUp(object sender, RoutedEventArgs e)
+        {
+
+            Window WindowSignUp = new SignUp();
+            WindowSignUp.Top = this.Top + (this.Height / 2) - (WindowSignUp.Height / 2);
+            WindowSignUp.Left = this.Left + (this.Width / 2) - (WindowSignUp.Width / 2);
+            WindowSignUp.ShowDialog();
         }
     }
 }

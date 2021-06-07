@@ -7,7 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.Data.SQLite" Version="1.0.114.2" />
+      <None Remove="images\icon.png" />
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="System.Data.SQLite" Version="1.0.114.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="images\avatar.png" />
+      <Resource Include="images\icon.png">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="images\settings.png" />
+    </ItemGroup>
 </Project>

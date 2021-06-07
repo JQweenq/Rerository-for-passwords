@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PG"
         mc:Ignorable="d"
-        Title="PassGen"
+        Title="GenAss"
         Height="450" Width="800"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Background="#151544">
+        Background="#151544"
+        Icon="images/icon.png"
+        WindowStartupLocation="CenterScreen">
     
     
     <Grid>
@@ -51,6 +53,8 @@
 
 
             <Button Content="Exit"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
                     Foreground="#DDD"
                     FontSize="10"
                     FontWeight="Medium"
@@ -66,8 +70,12 @@
                         <Setter Property="Cursor" Value="Hand"/>
 
                         <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True"/>
-                            <Trigger Property="Background" Value="#FF4C70"/>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Setter Property="Background" Value="#FE6584"/>
+                            </Trigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
@@ -86,17 +94,18 @@
 
         </Grid>
 
-        <Border BorderThickness="0,0,3,0" BorderBrush="#3C3C3C" CornerRadius="0,15,15,0" Grid.Row="1" Background="#171835">
+        <Border BorderThickness="0,0,3,0" BorderBrush="#3C3C3C" CornerRadius="0,15,15,0"
+                Grid.Row="1" Background="#171835">
             <StackPanel>
                 <Border BorderThickness="0,0,0,3" BorderBrush="#3C3C3C">
                 <StackPanel>
-                    <Image Width="50" Height="50" Source="images/unavatar.png"/>
+                    <Image Width="100" Height="100" Source="images/avatar.png"/>
                     <TextBlock Text="No Login"
-                       Foreground="#DDD"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       FontSize="15"
-                       FontFamily="segoe ui black"/>
+                               Foreground="#DDD"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontSize="15"
+                               FontFamily="segoe ui black"/>
                     
                     <Grid Margin="0,0,0,0">
                         <Grid.ColumnDefinitions>
@@ -104,9 +113,10 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Button Content="Sign In" Grid.Column="0"
-                    Foreground="#DDD"
-                    FontSize="15"
-                    FontWeight="Medium">
+                                Foreground="#DDD"
+                                FontSize="15"
+                                FontWeight="Medium"
+                                Click="OpenWindowSignIn">
 
                             <Button.Style>
                                 <Style TargetType="Button">
@@ -115,25 +125,30 @@
                                     <Setter Property="Cursor" Value="Hand"/>
 
                                     <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True"/>
-                                        <Trigger Property="Background" Value="#FF4C70"/>
-                                    </Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FF4C70"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                                <Setter Property="Background" Value="#FE6584"/>
+                                        </Trigger>
+                                        </Style.Triggers>
                                 </Style>
                             </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border BorderThickness="2" BorderBrush="#707070"
-                            Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border BorderThickness="2" BorderBrush="#707070"
+                                                Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                                              HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
                             </Button>
                         <Button Content="Sign Up" Grid.Column="1"
-                    Foreground="#DDD"
-                    FontSize="15"
-                    FontWeight="Medium">
+                                Foreground="#DDD"
+                                FontSize="15"
+                                FontWeight="Medium"
+                                Click="OpenWindowSignUp">
 
                             <Button.Style>
                                 <Style TargetType="Button">
@@ -142,8 +157,12 @@
                                     <Setter Property="Cursor" Value="Hand"/>
 
                                     <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True"/>
-                                        <Trigger Property="Background" Value="#FF4C70"/>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#FF4C70"/>
+                                            </Trigger>
+                                            <Trigger Property="IsEnabled" Value="True">
+                                                <Setter Property="Background" Value="#FE6584"/>
+                                            </Trigger>
                                     </Style.Triggers>
                                 </Style>
                             </Button.Style>

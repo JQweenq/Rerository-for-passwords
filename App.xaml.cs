@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+using Base;
+
 namespace PG
 {
     /// <summary>
@@ -13,5 +15,8 @@ namespace PG
     /// </summary>
     public partial class App : Application
     {
+        /* public App(){
+            DataBase db = new DataBase();
+        } */
     }
 }
