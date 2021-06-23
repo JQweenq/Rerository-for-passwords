@@ -5,13 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PG"
         mc:Ignorable="d"
-        Title="GenAss"
-        Height="450" Width="800"
-        WindowStyle="None"
-        ResizeMode="NoResize"
-        Background="#151544"
-        Icon="images/icon.png"
-        WindowStartupLocation="CenterScreen">
+        Title="GenAss" Height="450" Width="800" WindowStyle="None"
+        ResizeMode="NoResize" Background="#151544" Icon="images/icon.png"
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     
     
     <Grid>
@@ -183,6 +179,18 @@
                 </Border>
             </StackPanel>
         </Border>
-
+        
+        <DataGrid x:Name="LIST" Grid.Row="1" Grid.Column="1"
+                  Background="#0000" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                
+                <DataGridTextColumn Binding="{Binding Path=Num}" IsReadOnly="True" Header="Num" CanUserResize="False"/>
+                <DataGridHyperlinkColumn Binding="{Binding Path=Url}" IsReadOnly="False" Header="URL" Width="100" CanUserResize="False"/>
+                <DataGridTextColumn Binding="{Binding Path=Password}" IsReadOnly="False" Header="Password" Width="100" CanUserResize="False"/>
+                <DataGridTextColumn Binding="{Binding Path=Description}" IsReadOnly="False" Header="Description" Width="*" CanUserResize="False"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Data" Width="70" CanUserResize="False"/>
+            </DataGrid.Columns>
+            
+        </DataGrid>
     </Grid>
 </Window>

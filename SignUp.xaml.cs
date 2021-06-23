@@ -57,6 +57,7 @@ namespace PG
 		private void Register(object sender, RoutedEventArgs e)
 		{
 			MessageBox.Show($"{LOGLINE.Text}\n{PASSLINE.Text}");
+			((MainWindow)Application.Current.MainWindow).Register(LOGLINE.Text, PASSLINE.Text);
 		}
     }
 }

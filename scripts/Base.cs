@@ -7,9 +7,13 @@ namespace Base
 {
     class DataBase
     {
-        private SQLiteCommand MYCMD = new SQLiteCommand();
-        private SQLiteConnection MYCONN;
+        public SQLiteCommand MYCMD = new SQLiteCommand();
+        public SQLiteConnection MYCONN;
         private string TABLE;
+
+        public string LOGIN;
+        public string PASSWORD;
+
         private void OpenBD() // функция открытия бд
         {
             if (!File.Exists("Passwords.sqlite"))
@@ -37,15 +41,17 @@ namespace Base
         
         public void SingUp(string LOGIN, string PASSWORD) // добавление нового пользователя
         {
+            OpenBD();
             MYCMD.CommandText = $"CREATE TABLE {LOGIN}{PASSWORD} (url, login, password, description)";
             MYCMD.CommandType = CommandType.Text;
             MYCMD.ExecuteNonQuery();
             SignIn(LOGIN, PASSWORD);
+            TABLE = $"{LOGIN}{PASSWORD}".ToLower();
         }
 
-        public void AddPassword(string URL, string LOGIN, string PASSWORD, string DESCRIPTION = null) // добавление пароля для пользователя
+        public void AddPassword(string URL = null, string LOGIN = null, string PASSWORD = null, string DESCRIPTION = null, string DATA = null) // добавление пароля для пользователя
         {
-            MYCMD.CommandText = $"INSERT INTO {TABLE} (url, login, password, description) VALUES ('{URL}', '{LOGIN}', '{PASSWORD}', '{DESCRIPTION}')";
+            MYCMD.CommandText = $"INSERT INTO {TABLE} (url, login, password, description) VALUES ('{URL}', '{LOGIN}', '{PASSWORD}', '{DESCRIPTION}', '{DATA}')";
             MYCMD.CommandType = CommandType.Text;
             MYCMD.ExecuteNonQuery();
         }
@@ -80,6 +86,12 @@ namespace Base
         public void EditData(string VALUE, int  ROWID) // редактирование значения
         {
             MYCMD.CommandText = $"UPDATE {TABLE} SET {VALUE} WHERE ROWID = {ROWID}";
+            MYCMD.CommandType = CommandType.Text;
+            MYCMD.ExecuteNonQuery();
+        }
+
+        public void LoadData(string REQUEST = "*") {
+            MYCMD.CommandText = $"SELECT {REQUEST} FROM {TABLE}");
             MYCMD.CommandType = CommandType.Text;
             MYCMD.ExecuteNonQuery();
         }

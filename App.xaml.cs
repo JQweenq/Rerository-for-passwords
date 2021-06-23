@@ -15,8 +15,13 @@ namespace PG
     /// </summary>
     public partial class App : Application
     {
-        /* public App(){
-            DataBase db = new DataBase();
-        } */
+        /* private DataBase db = new DataBase();
+        private MainWindow main = new MainWindow();
+        private SignIn signin = new SignIn();
+        private SignUp signup = new SignUp(); */
+		private void StartUp(object sender, StartupEventArgs e)
+		{
+			Console.WriteLine("Startup");
+        }
     }
 }

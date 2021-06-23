@@ -5,10 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PG"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
-        Title="Sign Up"
-        Height="400" Width="300"
-        WindowStyle="None"
+        ResizeMode="NoResize" Title="Sign Up"
+        Height="400" Width="300" WindowStyle="None"
         Background="#22419C">
     <Grid>
         <Grid.RowDefinitions>
@@ -134,7 +132,7 @@
                     </TextBox.Style>
                 </TextBox>
 
-                <Button Content="Register" Margin="0,5,0,0"
+                <Button x:Name="BTN_REGIS" Content="Register" Margin="0,5,0,0"
                         FontSize="15"
                         Foreground="#3C3C3C"
                         FontWeight="Medium"
