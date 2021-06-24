@@ -1,14 +1,14 @@
 <h1 align="center">Repository for passwords</h1>
 
 <p align="center">
-<!--   <img alt="Preview" width="524" alt="Hero image" src="Link on icon.ico"/> -->
+  <img alt="Preview" width="512" alt="Hero image" src="https://github.com/Josty-Qweenq/Rerository-for-passwords/blob/windows/images for readme.md/icon.png"/>
   <br/>
   
   <br/>
   <br/>
-<!--   <a href="https://github.com/Josty-Qweenq/PG/blob/windows/LICENSE.txt" target="_blank">
-    <img src="ссылка" alt="License"/>
-  </a> -->
+  <a href="https://github.com/Josty-Qweenq/Rerository-for-passwords/blob/windows/LICENSE.txt" target="_blank">
+    <img src="https://github.com/Josty-Qweenq/Rerository-for-passwords/blob/windows/images for readme.md/License.png" alt="License"/>
+  </a>
 </p>
 
 ---
@@ -21,5 +21,5 @@
 
 Здесь будут публиковаться свежашие релизы данной программы
 
-<!-- | [Windows](https://github.com/Josty-Qweenq/PG/releases/latest/download/FILE NAME)  |
+<!-- | [Windows](https://github.com/Josty-Qweenq/Rerository-for-passwords/releases/latest/download/FILE NAME)  |
 | ------------- | -->
