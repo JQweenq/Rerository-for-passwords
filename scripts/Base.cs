@@ -9,7 +9,7 @@ namespace Base
 {
     class DataBase
     {
-        public SQLiteCommand MYCMD = new SQLiteCommand();
+        public SQLiteCommand MYCMD = new();
         public SQLiteConnection MYCONN;
         private string TABLE;
 
@@ -35,13 +35,13 @@ namespace Base
 
         }
 
-        public void SignIn(string LOGIN, string PASSWORD) // функция входа
+        public void SignIn() // функция входа
         {
             OpenBD();
             TABLE = $"{LOGIN}{PASSWORD}".ToLower();
         }
         
-        public void SingUp(string LOGIN, string PASSWORD) // добавление нового пользователя
+        public void SingUp() // добавление нового пользователя
         {
             OpenBD();
             MYCMD.CommandText = $"CREATE TABLE {LOGIN}{PASSWORD} (url, login, password, description, data)";
@@ -54,7 +54,7 @@ namespace Base
             {
                 return;
             }
-            SignIn(LOGIN, PASSWORD);
+            SignIn();
             TABLE = $"{LOGIN}{PASSWORD}".ToLower();
         }
 
@@ -106,7 +106,7 @@ namespace Base
 
             SQLiteDataReader Reader = MYCMD.ExecuteReader();
             int iteration = 0;
-            BindingList<Model> LIST = new BindingList<Model>();
+            BindingList<Model> LIST = new();
             while (Reader.Read())
             {
                 LIST.Add(new Model()
