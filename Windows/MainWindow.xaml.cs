@@ -16,7 +16,6 @@ using System.Windows.Shapes;
 
 using Base;
 using PG.Models;
-using PG.Services;
 
 namespace PG
 {
@@ -25,20 +24,21 @@ namespace PG
     /// </summary>
     public partial class MainWindow : Window
     {
-        private BindingList<Model> Data;
-        private IOService Service;
 
         private DataBase DB;
+        private BindingList<Model> DATA;
 
         public MainWindow()
         {
             InitializeComponent();
 
         }
+
         private void Exit(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+
         private void WindowMove(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
@@ -52,6 +52,7 @@ namespace PG
             WindowSignIn.Left = this.Left + (this.Width / 2) - (WindowSignIn.Width / 2);
             WindowSignIn.ShowDialog();
         }
+
         private void OpenWindowSignUp(object sender, RoutedEventArgs e)
         {
 
@@ -61,55 +62,58 @@ namespace PG
             WindowSignUp.ShowDialog();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            /*Service = new IOService();*/
-            /*
-             Data = Service.LoadData();
-             */
-            
-            
-            /*Data.ListChanged += Data_ListChanged;*/
-        }
-
         private void Data_ListChanged(object sender, ListChangedEventArgs e)
         {
+
+            Model List;
             switch (e.ListChangedType)
             {
                 case ListChangedType.ItemAdded: //
-                    /*
-                     Service.SaveData(sender);
-                     */
+                    DB.AddPassword();
+                    
+
                     break;
                 case ListChangedType.ItemDeleted: //
+                    if (LIST.SelectedIndex < 0) break;
+                    List = DATA[LIST.SelectedIndex];
 
-
+                    DB.RemoveRow(LIST.SelectedIndex + 1);
                     break;
+
                 case ListChangedType.ItemChanged: //
+                    if (LIST.SelectedIndex < 0) break;
+                    List = DATA[LIST.SelectedIndex];
+
+                    string VALUES = $"url='{List.Url}', login='{List.Login}', password='{List.Password}', description='{List.Description}'";
+
+                    DB.EditData(VALUES, LIST.SelectedIndex+1);
                     break;
             }
         }
         public void Login(string LOGIN, string PASSWORD){
-            DB = new DataBase();
-            DB.LOGIN = LOGIN;
-            DB.PASSWORD = PASSWORD;
-            DB.SignIn(LOGIN, PASSWORD);
-            LINELOGIN.Text = LOGIN;
-            LIST.ItemsSource = DB.LoadData();
+            DB = new DataBase
+            {
+                LOGIN = LOGIN, // инициализация переменной
+                PASSWORD = PASSWORD // инициализация переменной
+            }; // создание бд
+            DB.SignIn(); // вход
+            LINELOGIN.Text = LOGIN;// изменение логина на превью
+            DATA = DB.LoadData();
+            LIST.ItemsSource = DATA; // заполнение формы
+            DATA.ListChanged += Data_ListChanged; // присоединение к отслеживанию событий
+            
 
         }
         public void Register(string LOGIN, string PASSWORD)
 		{
-            Console.WriteLine(PASSWORD, LOGIN);
-			DB = new DataBase();
-            DB.LOGIN = LOGIN;
-            DB.PASSWORD = PASSWORD;
-            DB.SingUp(LOGIN, PASSWORD);
-            LINELOGIN.Text = LOGIN;
-            LIST.ItemsSource = DB.LoadData();
-            /*DB.AddPassword("sada", "d", "dsd", "f");*/
-
-            /*MessageBox.Show(DB.LoadData());*/
+            DB = new DataBase
+            {
+                LOGIN = LOGIN, // инициализация переменной
+                PASSWORD = PASSWORD // инициализация переменной
+            }; // создание бд
+            DB.SingUp(); // регистрация + вход
+            DATA = DB.LoadData();
+            LINELOGIN.Text = LOGIN; // изменение логина на превью
         }
     }
 }
