@@ -10,13 +10,7 @@ namespace PG.Services
 {
     class IOService
     {
-        public BindingList<Model> LoadData()
-        {
-            return null;
-        /*
-         Нужно загрузить данные и сконвертированные данные закинуть в список модели*/
-        }
-        public void SaveData(BindingList<Model> Data) // BindingList<Model> заменить на object
+            public void SaveData(BindingList<Model> Data) // BindingList<Model> заменить на object тк ошибка
         {
             return;
         /*

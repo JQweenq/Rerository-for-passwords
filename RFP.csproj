@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net5.0-windows</TargetFramework>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="images\icon.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.Data.SQLite" Version="1.0.114.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="images\avatar.png" />
+      <Resource Include="images\icon.png">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="images\settings.png" />
+    </ItemGroup>
+</Project>

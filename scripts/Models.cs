@@ -13,17 +13,14 @@ namespace PG.Models
         private string _URL;
         private string _Description;
         private string _Password;
+        private string _Login;
 
         public int Num
         {
             get { return _Num; }
             set 
             { 
-                /*if (_Num == value)
-                    return;*/
-
                 _Num = value;
-                /*OnPropertyChanged("Num");*/
             }
         }
 
@@ -37,6 +34,19 @@ namespace PG.Models
 
                 _URL = value;
                 OnPropertyChanged("Url");
+            }
+        }
+
+        public string Login
+        {
+            get { return _Login; }
+            set
+            {
+                if (_Login == value)
+                    return;
+
+                _Login = value;
+                OnPropertyChanged("Login");
             }
         }
 

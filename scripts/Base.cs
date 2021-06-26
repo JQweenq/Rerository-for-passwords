@@ -2,6 +2,8 @@
 using System.IO;
 using System.Data.SQLite;
 using System.Data;
+using System.ComponentModel;
+using PG.Models;
 
 namespace Base
 {
@@ -26,9 +28,9 @@ namespace Base
 
                 MYCMD.Connection = MYCONN;
             }
-            catch (SQLiteException ex)
+            catch (SQLiteException)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                return;
             }
 
         }
@@ -42,16 +44,23 @@ namespace Base
         public void SingUp(string LOGIN, string PASSWORD) // добавление нового пользователя
         {
             OpenBD();
-            MYCMD.CommandText = $"CREATE TABLE {LOGIN}{PASSWORD} (url, login, password, description)";
+            MYCMD.CommandText = $"CREATE TABLE {LOGIN}{PASSWORD} (url, login, password, description, data)";
             MYCMD.CommandType = CommandType.Text;
-            MYCMD.ExecuteNonQuery();
+            try
+            {
+                MYCMD.ExecuteNonQuery();
+            }
+            catch (SQLiteException)
+            {
+                return;
+            }
             SignIn(LOGIN, PASSWORD);
             TABLE = $"{LOGIN}{PASSWORD}".ToLower();
         }
 
         public void AddPassword(string URL = null, string LOGIN = null, string PASSWORD = null, string DESCRIPTION = null, string DATA = null) // добавление пароля для пользователя
         {
-            MYCMD.CommandText = $"INSERT INTO {TABLE} (url, login, password, description) VALUES ('{URL}', '{LOGIN}', '{PASSWORD}', '{DESCRIPTION}', '{DATA}')";
+            MYCMD.CommandText = $"INSERT INTO {TABLE} (url, login, password, description, data) VALUES ('{URL}', '{LOGIN}', '{PASSWORD}', '{DESCRIPTION}', '{DATA}')";
             MYCMD.CommandType = CommandType.Text;
             MYCMD.ExecuteNonQuery();
         }
@@ -66,7 +75,7 @@ namespace Base
             }
             catch (SQLiteException)
             {
-                Console.WriteLine("Error: {\n\tТакого аккаунта не существует\n}");
+                return;
             }
         }
         public void RemoveRow(int ROW = 1) // удаление строки
@@ -90,10 +99,27 @@ namespace Base
             MYCMD.ExecuteNonQuery();
         }
 
-        public void LoadData(string REQUEST = "*") {
-            MYCMD.CommandText = $"SELECT {REQUEST} FROM {TABLE}");
+        public BindingList<Model> LoadData(string REQUEST = "*") // запрос данных
+        {
+            MYCMD.CommandText = $"SELECT {REQUEST} FROM {TABLE}";
             MYCMD.CommandType = CommandType.Text;
-            MYCMD.ExecuteNonQuery();
+
+            SQLiteDataReader Reader = MYCMD.ExecuteReader();
+            int iteration = 0;
+            BindingList<Model> LIST = new BindingList<Model>();
+            while (Reader.Read())
+            {
+                LIST.Add(new Model()
+                    {
+                    Num = iteration + 1,
+                    Url = Reader.GetString(0),
+                    Login = Reader.GetString(1),
+                    Password = Reader.GetString(2),
+                    Description = Reader.GetString(3)
+                });
+                iteration++;
+            }
+            return LIST;
         }
     }
 }
