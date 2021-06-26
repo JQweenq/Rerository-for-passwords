@@ -29,8 +29,8 @@ namespace PG
         }
 		private void Signin(object sender, RoutedEventArgs e)
 		{
-			MessageBox.Show($"{LOGLINE.Text}\n{PASSLINE.Text}");
 			((MainWindow)Application.Current.MainWindow).Login(LOGLINE.Text, PASSLINE.Text);
+			Close();
 		}
 		private void Exit(object sender, RoutedEventArgs e)
 		{
