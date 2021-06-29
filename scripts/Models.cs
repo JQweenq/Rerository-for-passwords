@@ -15,6 +15,8 @@ namespace PG.Models
         private string _Password;
         private string _Login;
 
+        public DateTime Date { get; set; } = DateTime.Now;
+
         public int Num
         {
             get { return _Num; }
