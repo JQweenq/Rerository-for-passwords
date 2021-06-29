@@ -44,7 +44,7 @@ namespace Base
         public void SingUp() // добавление нового пользователя
         {
             OpenBD();
-            MYCMD.CommandText = $"CREATE TABLE {LOGIN}{PASSWORD} (url, login, password, description, data)";
+            MYCMD.CommandText = $"CREATE TABLE {LOGIN}{PASSWORD} (url, login, password, description, date DATETIME)";
             MYCMD.CommandType = CommandType.Text;
             try
             {
@@ -58,9 +58,9 @@ namespace Base
             TABLE = $"{LOGIN}{PASSWORD}".ToLower();
         }
 
-        public void AddPassword(string URL = null, string LOGIN = null, string PASSWORD = null, string DESCRIPTION = null, string DATA = null) // добавление пароля для пользователя
+        public void AddPassword(string URL = null, string LOGIN = null, string PASSWORD = null, string DESCRIPTION = null, DateTime DATE = new DateTime()) // добавление пароля для пользователя
         {
-            MYCMD.CommandText = $"INSERT INTO {TABLE} (url, login, password, description, data) VALUES ('{URL}', '{LOGIN}', '{PASSWORD}', '{DESCRIPTION}', '{DATA}')";
+            MYCMD.CommandText = $"INSERT INTO {TABLE} (url, login, password, description, date) VALUES ('{URL}', '{LOGIN}', '{PASSWORD}', '{DESCRIPTION}', '{DATE}')";
             MYCMD.CommandType = CommandType.Text;
             MYCMD.ExecuteNonQuery();
         }
@@ -80,9 +80,11 @@ namespace Base
         }
         public void RemoveRow(int ROW = 1) // удаление строки
         {
-            MYCMD.CommandText = $"DELETE FROM {TABLE} WHERE {ROW}";
+            MYCMD.CommandText = $"DELETE FROM {TABLE} WHERE ROWID = {ROW}";
             MYCMD.CommandType = CommandType.Text;
             MYCMD.ExecuteNonQuery();
+            OpenBD();
+            
         }
 
         public void RemoveAllRow()  // удаление всех строк
@@ -112,10 +114,11 @@ namespace Base
                 LIST.Add(new Model()
                     {
                     Num = iteration + 1,
-                    Url = Reader.GetString(0),
-                    Login = Reader.GetString(1),
-                    Password = Reader.GetString(2),
-                    Description = Reader.GetString(3)
+                    Url = Reader.GetString("url"),
+                    Login = Reader.GetString("login"),
+                    Password = Reader.GetString("password"),
+                    Description = Reader.GetString("description"),
+                    Date = DateTime.ParseExact(Reader.GetString("date"), "G", null)
                 });
                 iteration++;
             }
