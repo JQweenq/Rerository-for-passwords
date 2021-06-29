@@ -27,6 +27,8 @@ namespace PG
 
         private DataBase DB;
         private BindingList<Model> DATA;
+        private int ROWSELECTED;
+        private Model List;
 
         public MainWindow()
         {
@@ -64,29 +66,28 @@ namespace PG
 
         private void Data_ListChanged(object sender, ListChangedEventArgs e)
         {
-
-            Model List;
+            /*if (LIST.SelectedIndex < 0) return;
+            ROWSELECTED = LIST.SelectedIndex;*/
+            
             switch (e.ListChangedType)
             {
                 case ListChangedType.ItemAdded: //
                     DB.AddPassword();
-                    
-
                     break;
-                case ListChangedType.ItemDeleted: //
-                    if (LIST.SelectedIndex < 0) break;
-                    List = DATA[LIST.SelectedIndex];
 
-                    DB.RemoveRow(LIST.SelectedIndex + 1);
+                case ListChangedType.ItemDeleted: //
+
+                    DB.RemoveRow(ROWSELECTED + 1);
                     break;
 
                 case ListChangedType.ItemChanged: //
-                    if (LIST.SelectedIndex < 0) break;
-                    List = DATA[LIST.SelectedIndex];
+                    
+                    List = DATA[ROWSELECTED];
+                    /*MessageBox.Show(ROWSELECTED.ToString() + "\n" + List.Password);*/
+                    
+                    string VALUES = $"url='{List.Url}', login='{List.Login}', password='{List.Password}', description='{List.Description}', date='{List.Date}'";
 
-                    string VALUES = $"url='{List.Url}', login='{List.Login}', password='{List.Password}', description='{List.Description}'";
-
-                    DB.EditData(VALUES, LIST.SelectedIndex+1);
+                    DB.EditData(VALUES, ROWSELECTED + 1);
                     break;
             }
         }
@@ -101,7 +102,7 @@ namespace PG
             DATA = DB.LoadData();
             LIST.ItemsSource = DATA; // заполнение формы
             DATA.ListChanged += Data_ListChanged; // присоединение к отслеживанию событий
-            
+
 
         }
         public void Register(string LOGIN, string PASSWORD)
@@ -114,6 +115,18 @@ namespace PG
             DB.SingUp(); // регистрация + вход
             DATA = DB.LoadData();
             LINELOGIN.Text = LOGIN; // изменение логина на превью
+        }
+
+        private void LIST_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (LIST.SelectedIndex < 0 | LIST.SelectedIndex == ROWSELECTED) return;
+            ROWSELECTED = LIST.SelectedIndex;
+        }
+
+        private void LIST_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            if (LIST.SelectedIndex < 0 | LIST.SelectedIndex == ROWSELECTED) return;
+            ROWSELECTED = LIST.SelectedIndex;
         }
     }
 }
