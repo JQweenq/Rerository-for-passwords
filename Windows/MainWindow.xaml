@@ -12,7 +12,7 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -89,7 +89,7 @@
 
         </Grid>
 
-        <Border BorderThickness="0,0,3,0" BorderBrush="#3C3C3C" CornerRadius="0,15,15,0"
+        <Border BorderThickness="0,0,3,0" BorderBrush="#3C3C3C" CornerRadius="0,0,15,0"
                 Grid.Row="1" Background="#171835">
             <StackPanel>
                 <Border BorderThickness="0,0,0,3" BorderBrush="#3C3C3C">
@@ -181,16 +181,62 @@
         </Border>
         
         <DataGrid x:Name="LIST" Grid.Row="1" Grid.Column="1"
-                  Background="#0000" AutoGenerateColumns="False">
+                  Background="#0000" AutoGenerateColumns="False"
+                  BorderThickness="0" SelectionChanged="LIST_SelectionChanged"
+                  SelectedCellsChanged="LIST_SelectedCellsChanged"
+                  CanUserResizeRows="False" CanUserResizeColumns="False">
             <DataGrid.Columns>
-                
-                <DataGridTextColumn Binding="{Binding Path=Num}" IsReadOnly="True" Header="Num" CanUserResize="False"/>
-                <DataGridHyperlinkColumn Binding="{Binding Path=Url}" IsReadOnly="False" Header="URL" Width="100" CanUserResize="False"/>
-                <DataGridTextColumn Binding="{Binding Path=Password}" IsReadOnly="False" Header="Password" Width="100" CanUserResize="False"/>
-                <DataGridTextColumn Binding="{Binding Path=Description}" IsReadOnly="False" Header="Description" Width="*" CanUserResize="False"/>
-                <DataGridTextColumn IsReadOnly="True" Header="Data" Width="70" CanUserResize="False"/>
+
+                <DataGridTextColumn Binding="{Binding Path=Num}" IsReadOnly="True" Header="Num"></DataGridTextColumn>
+                <DataGridHyperlinkColumn Binding="{Binding Path=Url}" IsReadOnly="False" Header="URL" Width="100"/>
+                <DataGridTextColumn Binding="{Binding Path=Login}" IsReadOnly="False" Header="Login" Width="100"/>
+                <DataGridTextColumn Binding="{Binding Path=Password}" IsReadOnly="False" Header="Password" Width="100"/>
+                <DataGridTextColumn Binding="{Binding Path=Description}" IsReadOnly="False" Header="Description" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Path=Date}" IsReadOnly="True" Header="Date" Width="135"/>
             </DataGrid.Columns>
-            
+
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#539"/>
+                    <Setter Property="Foreground" Value="#DDD"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="BorderBrush" Value="#3C3C3C"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#DDD"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsEditing" Value="True">
+                            <Setter Property="TextBox.Background" Value="red"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                    <Setter Property="BorderBrush" Value="#3C3C3C"/>
+                    <Setter Property="BorderThickness" Value="3"/>
+                    <Setter Property="Margin" Value="0,-1,-1,0"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Background" Value="#317"/>
+                            <Setter Property="BorderBrush" Value="#970"/>
+                            <Setter Property="BorderThickness" Value="2"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type Button}" x:Key="{ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}">
+                    <Setter Property="Opacity" Value="0" />
+                    <Setter Property="Width" Value="0"/>
+                </Style>
+            </DataGrid.Resources>
         </DataGrid>
     </Grid>
 </Window>
