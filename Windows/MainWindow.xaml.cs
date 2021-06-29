@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,6 +79,8 @@ namespace PG
                 case ListChangedType.ItemDeleted: //
 
                     DB.RemoveRow(ROWSELECTED + 1);
+                    DATA = DB.LoadData();
+                    LIST.ItemsSource = DATA;
                     break;
 
                 case ListChangedType.ItemChanged: //
@@ -92,29 +95,43 @@ namespace PG
             }
         }
         public void Login(string LOGIN, string PASSWORD){
-            DB = new DataBase
+            try
             {
-                LOGIN = LOGIN, // инициализация переменной
-                PASSWORD = PASSWORD // инициализация переменной
-            }; // создание бд
-            DB.SignIn(); // вход
-            LINELOGIN.Text = LOGIN;// изменение логина на превью
-            DATA = DB.LoadData();
-            LIST.ItemsSource = DATA; // заполнение формы
-            DATA.ListChanged += Data_ListChanged; // присоединение к отслеживанию событий
-
-
+                DB = new DataBase
+                {
+                    LOGIN = LOGIN, // инициализация переменной
+                    PASSWORD = PASSWORD // инициализация переменной
+                }; // создание бд
+                DB.SignIn(); // вход
+                LINELOGIN.Text = LOGIN;// изменение логина на превью
+                DATA = DB.LoadData();
+                LIST.ItemsSource = DATA; // заполнение формы
+                DATA.ListChanged += Data_ListChanged; // присоединение к отслеживанию событий
+            }
+            catch (SQLiteException)
+            {
+                MessageBox.Show("Ошибка при входе. Проверьте правильность написания логина и пароля.");
+            }
         }
         public void Register(string LOGIN, string PASSWORD)
 		{
-            DB = new DataBase
+            try
             {
-                LOGIN = LOGIN, // инициализация переменной
-                PASSWORD = PASSWORD // инициализация переменной
-            }; // создание бд
-            DB.SingUp(); // регистрация + вход
-            DATA = DB.LoadData();
-            LINELOGIN.Text = LOGIN; // изменение логина на превью
+                DB = new DataBase
+                {
+                    LOGIN = LOGIN, // инициализация переменной
+                    PASSWORD = PASSWORD // инициализация переменной
+                }; // создание бд
+                DB.SingUp(); // регистрация + вход
+                DATA = DB.LoadData();
+                LIST.ItemsSource = DATA; // заполнение формы
+                DATA.ListChanged += Data_ListChanged; // присоединение к отслеживанию событий
+                LINELOGIN.Text = LOGIN; // изменение логина на превью
+            }
+            catch (SQLiteException)
+            {
+                MessageBox.Show("Такой аккаунт уже зарегистрирован.");
+            }
         }
 
         private void LIST_SelectionChanged(object sender, SelectionChangedEventArgs e)

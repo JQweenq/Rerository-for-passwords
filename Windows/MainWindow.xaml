@@ -38,20 +38,28 @@
                        FontSize="15"
                        FontFamily="segoe ui black"/>
 
-            <TextBlock Text="Preparation for release"
+            <TextBlock Text="Демо версия 1.0"
                        Foreground="#DDD"
                        Grid.Column="1"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="13.5"
                        FontFamily="segoe ui black"/>
+            
+            <TextBlock Text="Сделал: Josty Qweenq (Артём Я.)"
+                       Foreground="#DDD"
+                       Grid.Column="2"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="13.5"
+                       FontFamily="segoe ui black"/>
 
 
-            <Button Content="Exit"
+            <Button Content="X"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
                     Foreground="#DDD"
-                    FontSize="10"
+                    FontSize="16"
                     FontWeight="Medium"
                     Margin="0,0,10,0"
                     Grid.Column="5"
@@ -95,20 +103,24 @@
                 <Border BorderThickness="0,0,0,3" BorderBrush="#3C3C3C">
                 <StackPanel>
                     <Image Width="100" Height="100" Source="../images/avatar.png"/>
-                    <TextBlock x:Name="LINELOGIN"
-                               Text="No Login"
+                        <TextBlock x:Name="LINELOGIN"
                                Foreground="#DDD"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                FontSize="15"
-                               FontFamily="segoe ui black"/>
-                    
-                    <Grid Margin="0,0,0,0">
-                        <Grid.ColumnDefinitions>
+                               FontFamily="segoe ui black"
+                               Text="Вход не выполнен"/>
+
+                        <Grid Margin="0,0,0,0">
+                        <!--<Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Button Content="Sign In" Grid.Column="0"
+                        </Grid.ColumnDefinitions>-->
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Button Content="Вход" Grid.Row="0"
                                 Foreground="#DDD"
                                 FontSize="15"
                                 FontWeight="Medium"
@@ -140,7 +152,7 @@
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
-                        <Button Content="Sign Up" Grid.Column="1"
+                        <Button Content="Регистрация" Grid.Row="1"
                                 Foreground="#DDD"
                                 FontSize="15"
                                 FontWeight="Medium"
@@ -187,12 +199,12 @@
                   CanUserResizeRows="False" CanUserResizeColumns="False">
             <DataGrid.Columns>
 
-                <DataGridTextColumn Binding="{Binding Path=Num}" IsReadOnly="True" Header="Num"></DataGridTextColumn>
-                <DataGridHyperlinkColumn Binding="{Binding Path=Url}" IsReadOnly="False" Header="URL" Width="100"/>
-                <DataGridTextColumn Binding="{Binding Path=Login}" IsReadOnly="False" Header="Login" Width="100"/>
-                <DataGridTextColumn Binding="{Binding Path=Password}" IsReadOnly="False" Header="Password" Width="100"/>
-                <DataGridTextColumn Binding="{Binding Path=Description}" IsReadOnly="False" Header="Description" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Path=Date}" IsReadOnly="True" Header="Date" Width="135"/>
+                <DataGridTextColumn Binding="{Binding Path=Num}" IsReadOnly="True" Header="№"></DataGridTextColumn>
+                <DataGridHyperlinkColumn Binding="{Binding Path=Url}" IsReadOnly="False" Header="Ссылка" Width="100"/>
+                <DataGridTextColumn Binding="{Binding Path=Login}" IsReadOnly="False" Header="Логин" Width="100"/>
+                <DataGridTextColumn Binding="{Binding Path=Password}" IsReadOnly="False" Header="Пароль" Width="100"/>
+                <DataGridTextColumn Binding="{Binding Path=Description}" IsReadOnly="False" Header="Описание" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Path=Date}" IsReadOnly="True" Header="Дата" Width="135"/>
             </DataGrid.Columns>
 
             <DataGrid.ColumnHeaderStyle>
