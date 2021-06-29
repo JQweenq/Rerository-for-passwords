@@ -1,7 +1,7 @@
 <h1 align="center">Repository for passwords</h1>
 
 <p align="center">
-  <img alt="Preview" width="512" alt="Hero image" src="https://github.com/Josty-Qweenq/Rerository-for-passwords/blob/windows/images for readme.md/icon.png"/>
+  <img alt="Preview" width="128" alt="Hero image" src="https://github.com/Josty-Qweenq/Rerository-for-passwords/blob/windows/images for readme.md/icon.png"/>
   <br/>
   
   <br/>
@@ -42,5 +42,5 @@
 
 Здесь будут публиковаться свежашие релизы данной программы
 
-<!-- | [Windows](https://github.com/Josty-Qweenq/Rerository-for-passwords/releases/latest/download/FILE-NAME)  |
-| ------------- | -->
+| [Windows](https://github.com/Josty-Qweenq/Rerository-for-passwords/files/6733596/Demo.1.0.zip)  |
+| ------------- |
